@@ -1,14 +1,19 @@
+// index.ts
 import { SimuladorMercado } from './simulador';
 import { Orden } from './orden';  
 
 const simulador = new SimuladorMercado();
 
-// ejemplos
-simulador.insertarOrdenCompra(new Orden('TechCorp', 100, 120, 'compra'));
-simulador.insertarOrdenCompra(new Orden('BioHealth', 200, 90, 'compra'));
-simulador.insertarOrdenVenta(new Orden('TechCorp', 50, 115, 'venta'));
-simulador.insertarOrdenVenta(new Orden('BioHealth', 100, 85, 'venta'));
-simulador.insertarOrdenVenta(new Orden('AutoMotive', 150, 70, 'venta'));
+// Ejemplos de órdenes de compra y venta para cada empresa (X, Y, Z)
+simulador.insertarOrdenCompra(new Orden('X', 100, 130, 'compra'));
+simulador.insertarOrdenVenta(new Orden('X', 50, 85, 'venta'));
 
+simulador.insertarOrdenCompra(new Orden('Y', 150, 120, 'compra'));
+simulador.insertarOrdenVenta(new Orden('Y', 100, 105, 'venta'));
+
+simulador.insertarOrdenCompra(new Orden('Z', 200, 110, 'compra'));
+simulador.insertarOrdenVenta(new Orden('Z', 150, 100, 'venta'));
+
+
+// Ejecutar la simulación
 simulador.ejecutarSimulacion();
-
