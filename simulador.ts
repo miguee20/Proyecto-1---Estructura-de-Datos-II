@@ -1,4 +1,3 @@
-// simulador.ts
 import { Orden } from './orden'; 
 import { MaxHeap } from './maxHeap'; 
 import { MinHeap } from './minHeap'; 
@@ -62,6 +61,7 @@ export class SimuladorMercado {
     // Método para realizar las transacciones entre compra y venta para una empresa específica
     private realizarTransacciones(empresa: string, maxHeap: MaxHeap, minHeap: MinHeap): void {
         const ordenesPendientes: Orden[] = [];
+        let noProcesadas = false;  // Variable para rastrear si hubo órdenes no procesadas
 
         while (!maxHeap.isEmpty() && !minHeap.isEmpty()) {
             const compra = maxHeap.extractMax();
@@ -83,11 +83,13 @@ export class SimuladorMercado {
                 const transaccion = `📄 Transacción: ${empresa} | ${cantidadTransaccionada} acciones | Precio: $${venta.precio}`;
                 this.historial.push(transaccion);
 
-                // Manejar remanentes
+                // Mostrar el remanente del comprador
                 if (remanenteCompra > 0) {
                     maxHeap.insert({ ...compra, cantidad: remanenteCompra });
                     console.log(`   ➡️ Cantidad restante para el comprador: ${remanenteCompra}`);
                 }
+
+                // Mostrar el remanente del vendedor
                 if (remanenteVenta > 0) {
                     minHeap.insert({ ...venta, cantidad: remanenteVenta });
                     console.log(`   ➡️ Cantidad restante para el vendedor: ${remanenteVenta}`);
@@ -97,17 +99,18 @@ export class SimuladorMercado {
             } else {
                 console.log(`⚠️ No se pudo realizar la transacción. Precio de compra insuficiente: ${compra.precio} < ${venta.precio}`);
                 ordenesPendientes.push(compra);
+                noProcesadas = true;  // Hubo órdenes no procesadas
             }
         }
 
         // Reinserta las órdenes no procesadas
         ordenesPendientes.forEach(orden => maxHeap.insert(orden));
 
-        if (!maxHeap.isEmpty() || !minHeap.isEmpty()) {
+        if (noProcesadas) {
             console.log(`⚠️ Algunas órdenes no pudieron procesarse para la empresa ${empresa}.`);
+        } else {
+            console.log(`✅ Todas las órdenes procesadas para ${empresa}.`);
         }
-
-        console.log(`✅ Todas las órdenes procesadas para ${empresa}.`);
     }
 }
-  
+
