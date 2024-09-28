@@ -15,5 +15,5 @@ simulador.insertarOrdenCompra(new Orden('Z', 200, 110, 'compra'));
 simulador.insertarOrdenVenta(new Orden('Z', 150, 100, 'venta'));
 
 
-// Ejecutar la simulación
+// Ejecutar
 simulador.ejecutarSimulacion();
