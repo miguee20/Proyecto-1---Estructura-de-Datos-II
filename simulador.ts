@@ -1,3 +1,4 @@
+// simulador.ts
 import { Orden } from './orden'; 
 import { MaxHeap } from './maxHeap'; 
 import { MinHeap } from './minHeap'; 
@@ -15,7 +16,6 @@ export class SimuladorMercado {
         this.empresasHeaps = new Map<string, EmpresaHeaps>();
     }
 
-    // Método para insertar una orden de compra
     public insertarOrdenCompra(orden: Orden): void {
         let empresaHeaps = this.empresasHeaps.get(orden.empresa);
         if (!empresaHeaps) {
@@ -25,7 +25,6 @@ export class SimuladorMercado {
         empresaHeaps.maxHeap.insert(orden);
     }
 
-    // Método para insertar una orden de venta
     public insertarOrdenVenta(orden: Orden): void {
         let empresaHeaps = this.empresasHeaps.get(orden.empresa);
         if (!empresaHeaps) {
@@ -35,13 +34,12 @@ export class SimuladorMercado {
         empresaHeaps.minHeap.insert(orden);
     }
 
-    // Método que simula la ejecución del mercado de acciones
     public ejecutarSimulacion(): void {
-        console.log("=".repeat(50));
-        console.log("💼 SIMULADOR DE MERCADO DE ACCIONES 💼".padStart(35));
-        console.log("=".repeat(50));
+        console.log("=".repeat(67));
+        console.log("💼 BIENVENIDO AL SIMULADOR DE MERCADO DE ACCIONES DE FITECH LABS 💼".padStart(35));
+        console.log("=".repeat(67));
         console.log("\n📊 COMPAÑÍAS DISPONIBLES:\n");
-        console.log("  - X\n  - Y\n  - Z\n");
+        console.log("  - Empresa X\n  - Empresa Y\n  - Empresa Z\n");
 
         console.log("\n🛒 PROCESANDO ÓRDENES DE COMPRA Y VENTA...\n");
         
@@ -51,11 +49,11 @@ export class SimuladorMercado {
         });
 
         console.log("\n\n🔍 HISTORIAL DE TRANSACCIONES");
-        console.log("=".repeat(50));
+        console.log("=".repeat(56));
         this.historial.forEach(transaccion => {
             console.log(transaccion);
         });
-        console.log("=".repeat(50));
+        console.log("=".repeat(56));
     }
 
     // Método para realizar las transacciones entre compra y venta para una empresa específica
@@ -99,7 +97,7 @@ export class SimuladorMercado {
             } else {
                 console.log(`⚠️ No se pudo realizar la transacción. Precio de compra insuficiente: ${compra.precio} < ${venta.precio}`);
                 ordenesPendientes.push(compra);
-                noProcesadas = true;  // Hubo órdenes no procesadas
+                noProcesadas = true; 
             }
         }
 
@@ -113,4 +111,3 @@ export class SimuladorMercado {
         }
     }
 }
-
